@@ -1,8 +1,7 @@
 // Current SDK version: 3.22.1
 import 'package:flutter/material.dart';
 
-// image, materialApp, scaffold, Icons,
-// buttons(ElevatedButton, IconButton, TextButton, GestureDetector, InkWell)
+// Column, Row, SingleChildScrollView
 
 void main() {
   runApp(IntroApp());
@@ -24,6 +23,8 @@ class IntroApp extends StatelessWidget {
 class Home extends StatelessWidget {
   const Home({super.key});
 
+  // single child, multiple child(children)
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -32,54 +33,106 @@ class Home extends StatelessWidget {
         title: Text('Home'),
         backgroundColor: Colors.blue,
       ),
-      body: Center(
-        // child: Icon(
-        //   Icons.tablet_android,
-        //   size: 50,
-        //   color: Colors.white,
-        // ),
-        // child: Image.network('https://upload.wikimedia.org/wikipedia/commons/thumb/f/f9/Flag_of_Bangladesh.svg/2000px-Flag_of_Bangladesh.svg.png'),
-        // child: Image.asset(
-        //   'assets/images/messi.jpg',
-        //   width: 250,
-        //   height: 200,
-        //   fit: BoxFit.cover,
-        // ),
-        // child: ElevatedButton(
-        //   onPressed: () {
-        //     print('Button pressed');
-        //   },
-        //   child: Text('Notification'),
-        // ),
-        // child: IconButton(
-        //   onPressed: () {
-        //     print('Add');
-        //   },
-        //   icon: Icon(Icons.add),
-        // ),
-        // child: TextButton(
-        //   onPressed: () {
-        //     print('show button pressed');
-        //   },
-        //   child: Text('Text button'),
-        // ),
-        // child: GestureDetector(
-        //   onTap: () {
-        //     print('Single tap');
-        //   },
-        //   onDoubleTap: () {
-        //     print('Double tap');
-        //   },
-        //   child: Text('normal text'),
-        // ),
-        child: InkWell(
-          onTap: () {
-            print('Single tap');
-          },
-          onDoubleTap: () {
-            print('Double tap');
-          },
-          child: Text('normal text'),
+     /* body: Column(
+        // Vertically arrange
+        // mainAxisAlignment: ,
+        // crossAxisAlignment: ,
+        mainAxisSize: MainAxisSize.max,
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        crossAxisAlignment: CrossAxisAlignment.end,
+        children: [
+          Text('Hello world'),
+          Text('sdfdf'),
+          Text('sdf'),
+          ElevatedButton(
+            onPressed: () {},
+            child: Text('Click here'),
+          ),
+          IconButton(onPressed: () {}, icon: Icon(Icons.access_alarms))
+        ],
+      ),*/
+ /*     body: SingleChildScrollView(
+        scrollDirection: Axis.horizontal,
+        child: Row(
+          // Horizontally
+          mainAxisAlignment: MainAxisAlignment.end,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisSize: MainAxisSize.max,
+          children: [
+            Text('Hello world\nfrom ostad'),
+            Text('Hello world'),
+            Text('Hello world'),
+            Text('Hello world'),
+            Text('Hello world'),
+            Text('Hello world'),
+            Text('Hello world'),
+            Text('Hello world'),
+            Text('Hello world'),
+            Text('Hello world'),
+            Text('Hello world'),
+            Text('Hello world'),
+            Text('Hello world'),
+            Text('Hello world'),
+            Text('Hello world'),
+            Text('Hello world'),
+            Text('Hello world'),
+            Text('Hello world'),
+            Text('Hello world'),
+            Text('Hello world'),
+            Text('Hello world'),
+          ],
+        ),
+      ),*/
+      body: SingleChildScrollView(
+        scrollDirection: Axis.horizontal,
+        child: Row(
+          children: [
+            Column(
+              children: [
+                Text('Column 1'),
+                Text('Column 1'),
+                Text('Column 1'),
+                Text('Column 1'),
+                Text('Column 1'),
+                Text('Column 1'),
+                Text('Column 1'),
+              ],
+            ),
+            Column(
+              children: [
+                Text('Column 2'),
+                Text('Column 2'),
+                Text('Column 2'),
+                Text('Column 2'),
+                Text('Column 2'),
+                Text('Column 2'),
+                Text('Column 2'),
+                Text('Column 2'),
+                Text('Column 2'),
+                Text('Column 2'),
+                Text('Column 2'),
+                Text('Column 2'),
+                Text('Column 2'),
+                Row(
+                  children: [
+                    Text('Row 1 from col 2'),
+                    Text('Row 1 from col 2'),
+                    Text('Row 1 from col 2'),
+                    Text('Row 1 from col 2'),
+                    Text('Row 1 from col 2'),
+                  ],
+                )
+              ],
+            ),
+            Column(
+              children: [
+                Text('Column 3'),
+                Text('Column 3'),
+                Text('Column 3'),
+                Text('Column 3'),
+              ],
+            ),
+          ],
         ),
       ),
     );
