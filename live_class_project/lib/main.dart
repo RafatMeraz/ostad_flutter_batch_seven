@@ -1,7 +1,7 @@
 // Current SDK version: 3.22.1
 import 'package:flutter/material.dart';
 
-// Column, Row, SingleChildScrollView
+// ListView, Gridview, SizedBox, ListTile, Divider
 
 void main() {
   runApp(IntroApp());
@@ -20,121 +20,240 @@ class IntroApp extends StatelessWidget {
   }
 }
 
-class Home extends StatelessWidget {
+class Home extends StatefulWidget {
   const Home({super.key});
 
-  // single child, multiple child(children)
+  @override
+  State<Home> createState() => _HomeState();
+}
+
+class _HomeState extends State<Home> {
+  List<String> friendList = ['Fahad', 'Iram', 'Touhid', 'Sakib', 'Niloy'];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.green,
+      backgroundColor: Colors.white,
       appBar: AppBar(
         title: Text('Home'),
         backgroundColor: Colors.blue,
       ),
-     /* body: Column(
-        // Vertically arrange
-        // mainAxisAlignment: ,
-        // crossAxisAlignment: ,
-        mainAxisSize: MainAxisSize.max,
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        crossAxisAlignment: CrossAxisAlignment.end,
-        children: [
-          Text('Hello world'),
-          Text('sdfdf'),
-          Text('sdf'),
-          ElevatedButton(
-            onPressed: () {},
-            child: Text('Click here'),
-          ),
-          IconButton(onPressed: () {}, icon: Icon(Icons.access_alarms))
-        ],
-      ),*/
- /*     body: SingleChildScrollView(
-        scrollDirection: Axis.horizontal,
-        child: Row(
-          // Horizontally
-          mainAxisAlignment: MainAxisAlignment.end,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisSize: MainAxisSize.max,
-          children: [
-            Text('Hello world\nfrom ostad'),
-            Text('Hello world'),
-            Text('Hello world'),
-            Text('Hello world'),
-            Text('Hello world'),
-            Text('Hello world'),
-            Text('Hello world'),
-            Text('Hello world'),
-            Text('Hello world'),
-            Text('Hello world'),
-            Text('Hello world'),
-            Text('Hello world'),
-            Text('Hello world'),
-            Text('Hello world'),
-            Text('Hello world'),
-            Text('Hello world'),
-            Text('Hello world'),
-            Text('Hello world'),
-            Text('Hello world'),
-            Text('Hello world'),
-            Text('Hello world'),
-          ],
-        ),
-      ),*/
-      body: SingleChildScrollView(
-        scrollDirection: Axis.horizontal,
-        child: Row(
-          children: [
-            Column(
+      // body: ListView(
+      //   children: [
+      //     SizedBox(
+      //       height: 100,
+      //       width: 100,
+      //       child: Center(
+      //         child: Text('Box 1'),
+      //       ),
+      //     ),
+      //     SizedBox(
+      //       height: 100,
+      //       width: 100,
+      //       child: Center(
+      //         child: Text('Box 2'),
+      //       ),
+      //     ),
+      //     SizedBox(
+      //       height: 100,
+      //       width: 100,
+      //       child: Center(
+      //         child: Text('Box 3'),
+      //       ),
+      //     ),
+      //     SizedBox(
+      //       height: 100,
+      //       width: 100,
+      //       child: Center(
+      //         child: Text('Box 1'),
+      //       ),
+      //     ),
+      //     SizedBox(
+      //       height: 100,
+      //       width: 100,
+      //       child: Center(
+      //         child: Text('Box 2'),
+      //       ),
+      //     ),
+      //     SizedBox(
+      //       height: 100,
+      //       width: 100,
+      //       child: Center(
+      //         child: Text('Box 3'),
+      //       ),
+      //     ),
+      //     SizedBox(
+      //       height: 100,
+      //       width: 100,
+      //       child: Center(
+      //         child: Text('Box 1'),
+      //       ),
+      //     ),
+      //     SizedBox(
+      //       height: 100,
+      //       width: 100,
+      //       child: Center(
+      //         child: Text('Box 2'),
+      //       ),
+      //     ),
+      //     SizedBox(
+      //       height: 100,
+      //       width: 100,
+      //       child: Center(
+      //         child: Text('Box 3'),
+      //       ),
+      //     ),
+      //     SizedBox(
+      //       height: 100,
+      //       width: 100,
+      //       child: Center(
+      //         child: Text('Box 1'),
+      //       ),
+      //     ),
+      //     SizedBox(
+      //       height: 100,
+      //       width: 100,
+      //       child: Center(
+      //         child: Text('Box 2'),
+      //       ),
+      //     ),
+      //     SizedBox(
+      //       height: 100,
+      //       width: 100,
+      //       child: Center(
+      //         child: Text('Box 3'),
+      //       ),
+      //     ),
+      //     SizedBox(
+      //       height: 100,
+      //       width: 100,
+      //       child: Center(
+      //         child: Text('Box 1'),
+      //       ),
+      //     ),
+      //     SizedBox(
+      //       height: 100,
+      //       width: 100,
+      //       child: Center(
+      //         child: Text('Box 2'),
+      //       ),
+      //     ),
+      //     SizedBox(
+      //       height: 100,
+      //       width: 100,
+      //       child: Center(
+      //         child: Text('Box 3'),
+      //       ),
+      //     ),
+      //     SizedBox(
+      //       height: 100,
+      //       width: 100,
+      //       child: Center(
+      //         child: Text('Box 1'),
+      //       ),
+      //     ),
+      //     SizedBox(
+      //       height: 100,
+      //       width: 100,
+      //       child: Center(
+      //         child: Text('Box 2'),
+      //       ),
+      //     ),
+      //     SizedBox(
+      //       height: 100,
+      //       width: 100,
+      //       child: Center(
+      //         child: Text('Box 3'),
+      //       ),
+      //     ),
+      //   ],
+      // ),
+      // body: ListView.builder(
+      //   itemCount: 1000, // 0-999
+      //   itemBuilder: (context, index) {
+      //     return SizedBox(
+      //       width: 100,
+      //       height: 100,
+      //       child: Center(child: Text(index.toString())),
+      //     );
+      //   },
+      // ),
+      // body: ListView.builder(
+      //   itemCount: friendList.length,
+      //   // scrollDirection: Axis.horizontal,
+      //   itemBuilder: (context, index) {
+      //     return Text(friendList[index]);
+      //   },
+      // ),
+      body: ListView.separated(
+        itemCount: friendList.length,
+        // scrollDirection: Axis.horizontal,
+        itemBuilder: (context, index) {
+          return ListTile(
+            tileColor: Colors.grey.shade50,
+            title: Text(friendList[index]),
+            subtitle: Text('School friend'),
+            trailing: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text('Column 1'),
-                Text('Column 1'),
-                Text('Column 1'),
-                Text('Column 1'),
-                Text('Column 1'),
-                Text('Column 1'),
-                Text('Column 1'),
+                Icon(Icons.do_not_disturb_on_total_silence, color: Colors.green, size: 10,),
+                Text('Active')
               ],
             ),
-            Column(
-              children: [
-                Text('Column 2'),
-                Text('Column 2'),
-                Text('Column 2'),
-                Text('Column 2'),
-                Text('Column 2'),
-                Text('Column 2'),
-                Text('Column 2'),
-                Text('Column 2'),
-                Text('Column 2'),
-                Text('Column 2'),
-                Text('Column 2'),
-                Text('Column 2'),
-                Text('Column 2'),
-                Row(
-                  children: [
-                    Text('Row 1 from col 2'),
-                    Text('Row 1 from col 2'),
-                    Text('Row 1 from col 2'),
-                    Text('Row 1 from col 2'),
-                    Text('Row 1 from col 2'),
-                  ],
-                )
-              ],
+            leading: Text((index+1).toString()),
+            onTap: () {
+              print('$index item tapped');
+            },
+            titleTextStyle: TextStyle(
+              fontSize: 18,
+              color: Colors.red
             ),
-            Column(
-              children: [
-                Text('Column 3'),
-                Text('Column 3'),
-                Text('Column 3'),
-                Text('Column 3'),
-              ],
-            ),
-          ],
-        ),
+          );
+        },
+        separatorBuilder: (context, index) {
+          return Divider(
+            color: Colors.grey.shade200,
+            thickness: 2,
+            endIndent: 16,
+            indent: 4,
+          );
+          // return Text('This is $index separator');
+        },
       ),
+      // body: GridView.builder(
+      //   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+      //     crossAxisCount: 3,
+      //     crossAxisSpacing: 4,
+      //     mainAxisSpacing: 10,
+      //     childAspectRatio: 1
+      //   ),
+      //   itemCount: friendList.length,
+      //   itemBuilder: (context, index) {
+      //     return Column(
+      //       children: [
+      //         Text(index.toString()),
+      //         Text(friendList[index]),
+      //       ],
+      //     );
+      //   },
+      // ),
+      // body: GridView.builder(
+      //   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+      //     crossAxisCount: 3,
+      //     crossAxisSpacing: 4,
+      //     mainAxisSpacing: 10,
+      //     childAspectRatio: 1
+      //   ),
+      //   itemCount: friendList.length,
+      //   itemBuilder: (context, index) {
+      //     return Column(
+      //       children: [
+      //         Text(index.toString()),
+      //         Text(friendList[index]),
+      //       ],
+      //     );
+      //   },
+      // ),
     );
   }
 }
