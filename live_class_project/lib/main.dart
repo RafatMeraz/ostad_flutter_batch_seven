@@ -1,13 +1,7 @@
-import 'package:device_preview/device_preview.dart';
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(
-    DevicePreview(
-      enabled: true,
-      builder: (context) => MyApp(), // Wrap your app
-    ),
-  );
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -16,86 +10,116 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      useInheritedMediaQuery: true,
-      locale: DevicePreview.locale(context),
-      builder: DevicePreview.appBuilder,
       theme: ThemeData.light(),
       darkTheme: ThemeData.dark(),
-      home: Home(),
+      home: const HomeScreen(),
     );
   }
 }
 
-class Home extends StatelessWidget {
-  const Home({super.key});
+class HomeScreen extends StatefulWidget {
+  const HomeScreen({super.key});
+  //
+  // @override
+  // State<StatefulWidget> createState() {
+  //   return HomeScreenState();
+  // }
+
+  @override
+  State<StatefulWidget> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  int counter = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    print('init state');
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    print('didChangeDependencies');
+  }
+
+  @override
+  void didUpdateWidget(covariant HomeScreen oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    print('didUpdateWidget');
+  }
 
   @override
   Widget build(BuildContext context) {
-    print(MediaQuery.sizeOf(context).width);
-    print(MediaQuery.of(context).size.width);
-
+    print('build');
     return Scaffold(
       appBar: AppBar(
-        title: Text('Home'),
-        backgroundColor: Colors.blue,
+        title: const Text('Home'),
       ),
-      // body: SizedBox(
-      //   width: MediaQuery.of(context).size.width,
-      //   child: Column(
-      //     children: [
-      //       // Flexible(
-      //       //   flex: 2,
-      //       //   child: Container(
-      //       //     color: Colors.blue,
-      //       //     width: 100,
-      //       //   ),
-      //       // ),
-      //       // Flexible(
-      //       //   flex: 5,
-      //       //   child: Container(
-      //       //     color: Colors.green,
-      //       //     width: 200,
-      //       //   ),
-      //       // ),
-      //       // Flexible(
-      //       //   flex: 8,
-      //       //   child: Container(
-      //       //     color: Colors.yellow,
-      //       //     width: 200,
-      //       //   ),
-      //       // ),
-      //       // Expanded(
-      //       //   child: Container(
-      //       //     color: Colors.pink,
-      //       //     width: 200,
-      //       //     height: 100,
-      //       //   ),
-      //       // ),
-      //       // Expanded(
-      //       //   child: Container(
-      //       //     color: Colors.orange,
-      //       //     width: 200,
-      //       //   ),
-      //       // ),
-      //       // AspectRatio(
-      //       //   aspectRatio: 16 / 9,
-      //       //   child: Container(
-      //       //     color: Colors.pink,
-      //       //   ),
-      //       // ),
-      //       LayoutBuilder(
-      //         builder: (context, constraints) {
-      //           return Text(constraints.maxWidth.toString());
-      //         },
-      //       )
-      //     ],
-      //   ),
-      // ),
-      body: LayoutBuilder(
-        builder: (context, constraints) {
-          return Text(constraints.maxWidth.toString());
-        },
+      body: Center(
+        child: Text('counter $counter'),
+      ),
+      floatingActionButton: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          FloatingActionButton(
+            onPressed: () {
+              counter--;
+              setState(() {});
+            },
+            child: const Icon(Icons.remove),
+          ),
+          const SizedBox(width: 16),
+          FloatingActionButton(
+            onPressed: () {
+              counter++;
+              setState(() {});
+            },
+            child: const Icon(Icons.add),
+          ),
+        ],
       ),
     );
   }
+
+  @override
+  void deactivate() {
+    print('deactive');
+    super.deactivate();
+  }
+
+  @override
+  void dispose() {
+    print('dispose');
+    super.dispose();
+  }
 }
+
+/*
+class Home extends StatelessWidget {
+  Home({super.key});
+
+  int counter = 0;
+
+  // rebuild
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Home'),
+      ),
+      body: Center(
+        child: Text('counter $counter'),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          counter++;
+          print(counter);
+        },
+        child: Icon(Icons.add),
+      ),
+    );
+  }
+}*/
