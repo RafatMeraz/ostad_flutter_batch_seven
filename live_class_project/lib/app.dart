@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:live_class_project/home_screen.dart';
 
-class SumApp extends StatelessWidget {
-  const SumApp({super.key});
+class WaterTrackerApp extends StatelessWidget {
+  const WaterTrackerApp({super.key});
 
   @override
   Widget build(BuildContext context) {
