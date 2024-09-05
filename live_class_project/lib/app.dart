@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:live_class_project/home_screen.dart';
+import 'package:live_class_project/screens/product_list_screen.dart';
 
-class WaterTrackerApp extends StatelessWidget {
-  const WaterTrackerApp({super.key});
+class CrudApp extends StatelessWidget {
+  const CrudApp({super.key});
 
   @override
   Widget build(BuildContext context) {
     return const MaterialApp(
-      home: HomeScreen(),
+      home: ProductListScreen(),
     );
   }
 }
