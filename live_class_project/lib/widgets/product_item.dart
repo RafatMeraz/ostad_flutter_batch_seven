@@ -1,24 +1,27 @@
 import 'package:flutter/material.dart';
+import 'package:live_class_project/models/product.dart';
 import 'package:live_class_project/screens/update_product_screen.dart';
 
 class ProductItem extends StatelessWidget {
   const ProductItem({
-    super.key,
+    super.key, required this.product,
   });
+
+  final Product product;
 
   @override
   Widget build(BuildContext context) {
     return ListTile(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
       tileColor: Colors.white,
-      title: const Text('Product name'),
+      title: Text(product.productName),
       subtitle: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text('Product Code: CODE'),
-          const Text('Price: \$120'),
-          const Text('Quantity: 2'),
-          const Text('Total Price: \$240'),
+          Text('Product Code: ${product.productCode}'),
+          Text('Price: \$${product.unitPrice}'),
+          Text('Quantity: ${product.quantity}'),
+          Text('Total Price: \$${product.totalPrice}'),
           const Divider(),
           ButtonBar(
             children: [
