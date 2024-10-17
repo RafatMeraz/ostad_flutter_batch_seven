@@ -9,7 +9,7 @@ class ProgressTaskScreen extends StatelessWidget {
     return ListView.separated(
       itemCount: 10,
       itemBuilder: (context, index) {
-        return const TaskCard();
+        // return const TaskCard();
       },
       separatorBuilder: (context, index) {
         return const SizedBox(height: 8);
