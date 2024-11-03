@@ -16,6 +16,7 @@ dependencies:
   cupertino_icons: ^1.0.6
   device_preview: ^1.2.0
   http: ^1.2.2
+  get: ^4.6.6
 
 dev_dependencies:
   flutter_test:
