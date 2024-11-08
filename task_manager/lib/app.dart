@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:task_manager/controller_binder.dart';
+import 'package:task_manager/ui/screens/main_bottom_nav_bar_screen.dart';
 import 'package:task_manager/ui/screens/splash_screen.dart';
 import 'package:task_manager/ui/utils/app_colors.dart';
 
@@ -14,7 +17,7 @@ class TaskManagerApp extends StatefulWidget {
 class _TaskManagerAppState extends State<TaskManagerApp> {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return GetMaterialApp(
       navigatorKey: TaskManagerApp.navigatorKey,
       theme: ThemeData(
         colorSchemeSeed: AppColors.themeColor,
@@ -22,7 +25,13 @@ class _TaskManagerAppState extends State<TaskManagerApp> {
         inputDecorationTheme: _inputDecorationTheme(),
         elevatedButtonTheme: _elevatedButtonThemeData(),
       ),
-      home: const SplashScreen(),
+      initialBinding: ControllerBinder(),
+      initialRoute: '/',
+      routes: {
+        SplashScreen.name: (context) => const SplashScreen(),
+        MainBottomNavBarScreen.name: (context) =>
+            const MainBottomNavBarScreen(),
+      },
     );
   }
 
@@ -44,9 +53,7 @@ class _TaskManagerAppState extends State<TaskManagerApp> {
     return InputDecorationTheme(
       fillColor: Colors.white,
       filled: true,
-      hintStyle: const TextStyle(
-        fontWeight: FontWeight.w300
-      ),
+      hintStyle: const TextStyle(fontWeight: FontWeight.w300),
       border: _inputBorder(),
       enabledBorder: _inputBorder(),
       errorBorder: _inputBorder(),
