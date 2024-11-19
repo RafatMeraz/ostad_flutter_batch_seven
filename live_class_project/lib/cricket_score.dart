@@ -28,4 +28,15 @@ class CricketScore {
       winnerTeam: json['winnerTeam'],
     );
   }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'teamOne' : teamOneName,
+      'teamTwo' : teamTwoName,
+      'teamOneScore' : teamOneScore,
+      'teamTwoScore' : teamTwoScore,
+      'isMatchRunning' : isMatchRunning,
+      'winnerTeam' : winnerTeam,
+    };
+  }
 }
