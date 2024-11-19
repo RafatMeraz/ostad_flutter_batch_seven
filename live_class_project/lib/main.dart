@@ -1,40 +1,25 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:live_class_project/counter_controller.dart';
-import 'package:live_class_project/firebase_options.dart';
-import 'package:live_class_project/home_screen.dart';
-import 'package:live_class_project/profile_screen.dart';
-import 'package:live_class_project/settings_screen.dart';
+import 'package:live_class_project/live_score_screen.dart';
+
+import 'firebase_options.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  runApp(const CounterApp());
+  runApp(const LiveScoreApp());
 }
 
-class CounterApp extends StatelessWidget {
-  const CounterApp({super.key});
+class LiveScoreApp extends StatelessWidget {
+  const LiveScoreApp({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return GetMaterialApp(
-      initialBinding: ControllerBinder(),
-      initialRoute: '/',
-      routes: {
-        HomeScreen.name: (context) => const HomeScreen(),
-        ProfileScreen.name: (context) => const ProfileScreen(),
-        SettingsScreen.name: (context) => const SettingsScreen(),
-      },
+    return const GetMaterialApp(
+      home: LiveScoreScreen(),
     );
-  }
-}
-
-class ControllerBinder extends Bindings {
-  @override
-  void dependencies() {
-    Get.put(CounterController());
   }
 }
