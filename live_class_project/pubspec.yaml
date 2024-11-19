@@ -17,6 +17,7 @@ dependencies:
   device_preview: ^1.2.0
   http: ^1.2.2
   get: ^4.6.6
+  firebase_core: ^3.8.0
 
 dev_dependencies:
   flutter_test:
