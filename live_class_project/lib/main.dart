@@ -1,6 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:live_class_project/firebase_notification_manager.dart';
 import 'package:live_class_project/live_score_screen.dart';
 
 import 'firebase_options.dart';
@@ -10,6 +11,8 @@ Future<void> main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+  await FirebaseNotificationManager.initialize();
+  print(await FirebaseNotificationManager.getFcmToken());
   runApp(const LiveScoreApp());
 }
 
