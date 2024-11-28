@@ -13,13 +13,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  cupertino_icons: ^1.0.6
-  device_preview: ^1.2.0
-  http: ^1.2.2
-  get: ^4.6.6
-  firebase_core: ^3.8.0
-  cloud_firestore: ^5.5.0
-  firebase_messaging: ^15.1.5
+  google_maps_flutter: ^2.10.0
 
 dev_dependencies:
   flutter_test:
