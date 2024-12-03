@@ -5,7 +5,6 @@ void main() {
   runApp(const GoogleMapsApp());
 }
 
-
 class GoogleMapsApp extends StatelessWidget {
   const GoogleMapsApp({super.key});
 
