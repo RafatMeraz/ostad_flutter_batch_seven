@@ -1,7 +1,13 @@
+import 'dart:async';
+
 import 'package:ecommerce/app/app_colors.dart';
+import 'package:ecommerce/app/app_constants.dart';
 import 'package:ecommerce/features/auth/ui/widgets/app_logo_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
+import 'package:get/get.dart';
+
+import 'complete_profile_screen.dart';
 
 class OtpVerificationScreen extends StatefulWidget {
   const OtpVerificationScreen({super.key});
@@ -15,6 +21,27 @@ class OtpVerificationScreen extends StatefulWidget {
 class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
   final TextEditingController _otpTEController = TextEditingController();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  final RxInt _remainingTime = AppConstants.resendOtpTimeOutInSecs.obs;
+  late Timer timer;
+  final RxBool _enableResendCodeButton = false.obs;
+
+  @override
+  void initState() {
+    super.initState();
+    _startResendCodeTimer();
+  }
+
+  void _startResendCodeTimer() {
+    _enableResendCodeButton.value = false;
+    _remainingTime.value = AppConstants.resendOtpTimeOutInSecs;
+    timer = Timer.periodic(const Duration(seconds: 1), (t) {
+      _remainingTime.value--;
+      if (_remainingTime.value == 0) {
+        t.cancel();
+        _enableResendCodeButton.value = true;
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -59,29 +86,40 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
                 ElevatedButton(
                   onPressed: () {
                     // if (_formKey.currentState!.validate()) {}
+                    Navigator.pushNamed(context, CompleteProfileScreen.name);
                   },
                   child: const Text('Next'),
                 ),
                 const SizedBox(height: 24),
-                // TODO: enable button when 120s is done and invisible the text
-                // stream, timer(setState), getx(obs)
-                RichText(
-                  text: const TextSpan(
-                    text: 'This code will be expire in ',
-                    style: TextStyle(color: Colors.grey),
-                    children: [
-                      TextSpan(
-                        text: '120s',
-                        style: TextStyle(
-                          color: AppColors.themeColor,
-                        ),
-                      )
-                    ],
+                Obx(
+                  () => Visibility(
+                    visible: !_enableResendCodeButton.value,
+                    child: RichText(
+                      text: TextSpan(
+                        text: 'This code will be expire in ',
+                        style: const TextStyle(color: Colors.grey),
+                        children: [
+                          TextSpan(
+                            text: '${_remainingTime}s',
+                            style: const TextStyle(
+                              color: AppColors.themeColor,
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
                   ),
                 ),
-                TextButton(
-                  onPressed: () {},
-                  child: const Text('Resend Code'),
+                Obx(
+                  () => Visibility(
+                    visible: _enableResendCodeButton.value,
+                    child: TextButton(
+                      onPressed: () {
+                        _startResendCodeTimer();
+                      },
+                      child: const Text('Resend Code'),
+                    ),
+                  ),
                 )
               ],
             ),
@@ -89,5 +127,11 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
         ),
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    timer.cancel();
+    super.dispose();
   }
 }
