@@ -1,11 +1,5 @@
-import 'dart:async';
-
-import 'package:ecommerce/app/app_colors.dart';
-import 'package:ecommerce/app/app_constants.dart';
 import 'package:ecommerce/features/auth/ui/widgets/app_logo_widget.dart';
 import 'package:flutter/material.dart';
-import 'package:pin_code_fields/pin_code_fields.dart';
-import 'package:get/get.dart';
 
 class CompleteProfileScreen extends StatefulWidget {
   const CompleteProfileScreen({super.key});
