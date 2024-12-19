@@ -27,8 +27,7 @@ class CategoryItemWidget extends StatelessWidget {
           style: TextStyle(
               fontSize: 16,
               color: AppColors.themeColor,
-              fontWeight: FontWeight.w500
-          ),
+              fontWeight: FontWeight.w500),
         )
       ],
     );
