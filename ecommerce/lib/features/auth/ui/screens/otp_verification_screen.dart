@@ -2,7 +2,12 @@ import 'dart:async';
 
 import 'package:ecommerce/app/app_colors.dart';
 import 'package:ecommerce/app/app_constants.dart';
+import 'package:ecommerce/features/auth/ui/controllers/otp_verification_controller.dart';
+import 'package:ecommerce/features/auth/ui/controllers/read_profile_controller.dart';
 import 'package:ecommerce/features/auth/ui/widgets/app_logo_widget.dart';
+import 'package:ecommerce/features/common/ui/screens/main_bottom_nav_screen.dart';
+import 'package:ecommerce/features/common/ui/widgets/centered_circular_progress_indicator.dart';
+import 'package:ecommerce/features/common/ui/widgets/snack_bar_message.dart';
 import 'package:flutter/material.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 import 'package:get/get.dart';
@@ -10,9 +15,11 @@ import 'package:get/get.dart';
 import 'complete_profile_screen.dart';
 
 class OtpVerificationScreen extends StatefulWidget {
-  const OtpVerificationScreen({super.key});
+  const OtpVerificationScreen({super.key, required this.email});
 
   static const String name = '/otp-verification';
+
+  final String email;
 
   @override
   State<OtpVerificationScreen> createState() => _OtpVerificationScreenState();
@@ -24,6 +31,8 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
   final RxInt _remainingTime = AppConstants.resendOtpTimeOutInSecs.obs;
   late Timer timer;
   final RxBool _enableResendCodeButton = false.obs;
+  final OtpVerificationController _otpVerificationController =
+      Get.find<OtpVerificationController>();
 
   @override
   void initState() {
@@ -81,14 +90,24 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
                   keyboardType: TextInputType.number,
                   appContext: context,
                   controller: _otpTEController,
+                  validator: (String? value) {
+                    if (value?.length != 6) {
+                      return 'Enter your otp';
+                    }
+                    return null;
+                  },
                 ),
                 const SizedBox(height: 16),
-                ElevatedButton(
-                  onPressed: () {
-                    // if (_formKey.currentState!.validate()) {}
-                    Navigator.pushNamed(context, CompleteProfileScreen.name);
-                  },
-                  child: const Text('Next'),
+                GetBuilder<OtpVerificationController>(
+                  builder: (controller) {
+                    if (controller.inProgress) {
+                      return const CenteredCircularProgressIndicator();
+                    }
+                    return ElevatedButton(
+                      onPressed: _onTapNextButton,
+                      child: const Text('Next'),
+                    );
+                  }
                 ),
                 const SizedBox(height: 24),
                 Obx(
@@ -127,6 +146,30 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
         ),
       ),
     );
+  }
+
+  Future<void> _onTapNextButton() async {
+    if (_formKey.currentState!.validate()) {
+      final bool response = await _otpVerificationController.verifyOtp(
+          widget.email, _otpTEController.text);
+      if (response) {
+        if (_otpVerificationController.shouldNavigateCompleteProfile) {
+          if (mounted) {
+            Navigator.pushNamed(context, CompleteProfileScreen.name);
+          }
+        } else {
+          if (mounted) {
+            Navigator.pushNamedAndRemoveUntil(
+                context, MainBottomNavScreen.name, (predicate) => false);
+          }
+        }
+      } else {
+        if (mounted) {
+          showSnackBarMessage(
+              context, _otpVerificationController.errorMessage!);
+        }
+      }
+    }
   }
 
   @override
