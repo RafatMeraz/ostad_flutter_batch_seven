@@ -1,5 +1,9 @@
 import 'package:ecommerce/app/assets_path.dart';
+import 'package:ecommerce/features/common/data/models/category_model.dart';
+import 'package:ecommerce/features/common/ui/controllers/category_list_controller.dart';
 import 'package:ecommerce/features/common/ui/controllers/main_bottom_nav_controller.dart';
+import 'package:ecommerce/features/common/ui/widgets/centered_circular_progress_indicator.dart';
+import 'package:ecommerce/features/home/ui/controllers/home_banner_list_controller.dart';
 import 'package:ecommerce/features/home/ui/widgets/app_bar_icon_button.dart';
 import 'package:ecommerce/features/common/ui/widgets/category_item_widget.dart';
 import 'package:ecommerce/features/home/ui/widgets/home_carousel_slider.dart';
@@ -36,7 +40,19 @@ class _HomeScreenState extends State<HomeScreen> {
                 controller: _searchBarController,
               ),
               const SizedBox(height: 16),
-              const HomeCarouselSlider(),
+              GetBuilder<HomeBannerListController>(
+                builder: (controller) {
+                  if (controller.inProgress) {
+                    return const SizedBox(
+                      height: 180,
+                      child: CenteredCircularProgressIndicator(),
+                    );
+                  }
+                  return HomeCarouselSlider(
+                    bannerList: controller.bannerList,
+                  );
+                }
+              ),
               const SizedBox(height: 16),
               HomeSectionHeader(
                 title: 'Category',
@@ -45,11 +61,21 @@ class _HomeScreenState extends State<HomeScreen> {
                 },
               ),
               const SizedBox(height: 8),
-              SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
-                child: Row(
-                  children: _getCategoryList(),
-                ),
+              GetBuilder<CategoryListController>(
+                builder: (controller) {
+                  if (controller.inProgress) {
+                    return const SizedBox(
+                      height: 100,
+                      child: CenteredCircularProgressIndicator(),
+                    );
+                  }
+                  return SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    child: Row(
+                      children: _getCategoryList(controller.categoryList),
+                    ),
+                  );
+                }
               ),
               const SizedBox(height: 16),
               HomeSectionHeader(
@@ -94,13 +120,15 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  List<Widget> _getCategoryList() {
+  List<Widget> _getCategoryList(List<CategoryModel> categoryModels) {
     List<Widget> categoryList = [];
-    for (int i = 0; i < 10; i++) {
+    for (int i = 0; i < categoryModels.length; i++) {
       categoryList.add(
-        const Padding(
-          padding: EdgeInsets.only(right: 16),
-          child: CategoryItemWidget(),
+        Padding(
+          padding: const EdgeInsets.only(right: 16),
+          child: CategoryItemWidget(
+            categoryModel: categoryModels[i],
+          ),
         ),
       );
     }
