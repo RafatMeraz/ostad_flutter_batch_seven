@@ -28,7 +28,7 @@ class _ProductListScreenState extends State<ProductListScreen> {
         ),
         itemCount: 20,
         itemBuilder: (context, index) {
-          return const FittedBox(child: ProductItemWidget());
+          // return const FittedBox(child: ProductItemWidget());
         },
       ),
     );
