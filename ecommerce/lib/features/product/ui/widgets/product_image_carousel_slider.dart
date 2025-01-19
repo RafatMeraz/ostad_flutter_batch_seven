@@ -5,13 +5,18 @@ import 'package:flutter/material.dart';
 class ProductImageCarouselSlider extends StatefulWidget {
   const ProductImageCarouselSlider({
     super.key,
+    required this.imageUrls,
   });
 
+  final List<String> imageUrls;
+
   @override
-  State<ProductImageCarouselSlider> createState() => _ProductImageCarouselSliderState();
+  State<ProductImageCarouselSlider> createState() =>
+      _ProductImageCarouselSliderState();
 }
 
-class _ProductImageCarouselSliderState extends State<ProductImageCarouselSlider> {
+class _ProductImageCarouselSliderState
+    extends State<ProductImageCarouselSlider> {
   final ValueNotifier<int> _selectedIndex = ValueNotifier(0);
 
   @override
@@ -26,19 +31,15 @@ class _ProductImageCarouselSliderState extends State<ProductImageCarouselSlider>
               _selectedIndex.value = currentIndex;
             },
           ),
-          items: [1, 2, 3, 4, 5].map((i) {
+          items: widget.imageUrls.map((url) {
             return Builder(
               builder: (BuildContext context) {
                 return Container(
                   width: MediaQuery.of(context).size.width,
-                  decoration: const BoxDecoration(
-                    color: Colors.black12,
-                  ),
+                  decoration: BoxDecoration(
+                      color: Colors.black12,
+                      image: DecorationImage(image: NetworkImage(url))),
                   alignment: Alignment.center,
-                  child: Text(
-                    'text $i',
-                    style: const TextStyle(fontSize: 16.0),
-                  ),
                 );
               },
             );
@@ -54,16 +55,14 @@ class _ProductImageCarouselSliderState extends State<ProductImageCarouselSlider>
               return Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  for (int i = 0; i < 5; i++)
+                  for (int i = 0; i < widget.imageUrls.length; i++)
                     Container(
                       width: 16,
                       height: 16,
                       margin: const EdgeInsets.symmetric(horizontal: 2),
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(20),
-                        color: value == i
-                            ? AppColors.themeColor
-                            : Colors.white,
+                        color: value == i ? AppColors.themeColor : Colors.white,
                         border: Border.all(color: Colors.grey.shade300),
                       ),
                     ),
