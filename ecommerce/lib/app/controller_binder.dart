@@ -1,6 +1,7 @@
-import 'package:ecommerce/features/auth/ui/controllers/email_verification_controller.dart';
+import 'package:ecommerce/features/auth/ui/controllers/sign_in_controller.dart';
 import 'package:ecommerce/features/auth/ui/controllers/otp_verification_controller.dart';
 import 'package:ecommerce/features/auth/ui/controllers/read_profile_controller.dart';
+import 'package:ecommerce/features/auth/ui/controllers/sign_up_controller.dart';
 import 'package:ecommerce/features/common/ui/controllers/auth_controller.dart';
 import 'package:ecommerce/features/common/ui/controllers/category_list_controller.dart';
 import 'package:ecommerce/features/common/ui/controllers/main_bottom_nav_controller.dart';
@@ -18,7 +19,8 @@ class ControllerBinder extends Bindings {
     Get.put(MainBottomNavController());
     Get.put(AuthController());
     Get.put(NetworkCaller());
-    Get.put(EmailVerificationController());
+    Get.put(SignInController());
+    Get.put(SignUpController());
     Get.put(OtpVerificationController());
     Get.put(ReadProfileController());
     Get.put(HomeBannerListController());

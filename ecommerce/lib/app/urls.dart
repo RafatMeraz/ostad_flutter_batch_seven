@@ -1,7 +1,8 @@
 class Urls {
-  static const String _baseUrl = 'https://ecommerce-api.codesilicon.com/api';
+  static const String _baseUrl = 'https://ecom-rs8e.onrender.com/api';
 
-  static String verifyEmailUrl(String email) => '$_baseUrl/UserLogin/$email';
+  static const String signInUrl = '$_baseUrl/auth/login';
+  static const String signUpUrl = '$_baseUrl/auth/signup';
 
   static String verifyOtpUrl(String email, String otp) =>
       '$_baseUrl/VerifyLogin/$email/$otp';

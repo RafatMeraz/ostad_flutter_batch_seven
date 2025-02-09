@@ -12,7 +12,7 @@ import 'package:flutter/material.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 import 'package:get/get.dart';
 
-import 'complete_profile_screen.dart';
+import 'sign_up_screen.dart';
 
 class OtpVerificationScreen extends StatefulWidget {
   const OtpVerificationScreen({super.key, required this.email});
@@ -155,7 +155,7 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
       if (response) {
         if (_otpVerificationController.shouldNavigateCompleteProfile) {
           if (mounted) {
-            Navigator.pushNamed(context, CompleteProfileScreen.name);
+            Navigator.pushNamed(context, SignUpScreen.name);
           }
         } else {
           if (mounted) {
