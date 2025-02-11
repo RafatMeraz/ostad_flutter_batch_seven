@@ -1,12 +1,12 @@
-class SignInModel {
+class AuthSuccessModel {
   int? code;
   String? status;
   String? msg;
   Data? data;
 
-  SignInModel({this.code, this.status, this.msg, this.data});
+  AuthSuccessModel({this.code, this.status, this.msg, this.data});
 
-  SignInModel.fromJson(Map<String, dynamic> json) {
+  AuthSuccessModel.fromJson(Map<String, dynamic> json) {
     code = json['code'];
     status = json['status'];
     msg = json['msg'];

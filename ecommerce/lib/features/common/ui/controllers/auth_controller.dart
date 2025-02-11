@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:ecommerce/features/auth/data/models/profile_model.dart';
-import 'package:ecommerce/features/auth/data/models/sign_in_model.dart';
+import 'package:ecommerce/features/auth/data/models/auth_success_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class AuthController {

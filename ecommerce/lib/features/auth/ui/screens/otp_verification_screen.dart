@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:ecommerce/app/app_colors.dart';
 import 'package:ecommerce/app/app_constants.dart';
 import 'package:ecommerce/features/auth/ui/controllers/otp_verification_controller.dart';
-import 'package:ecommerce/features/auth/ui/controllers/read_profile_controller.dart';
 import 'package:ecommerce/features/auth/ui/widgets/app_logo_widget.dart';
 import 'package:ecommerce/features/common/ui/screens/main_bottom_nav_screen.dart';
 import 'package:ecommerce/features/common/ui/widgets/centered_circular_progress_indicator.dart';
@@ -11,8 +10,6 @@ import 'package:ecommerce/features/common/ui/widgets/snack_bar_message.dart';
 import 'package:flutter/material.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 import 'package:get/get.dart';
-
-import 'sign_up_screen.dart';
 
 class OtpVerificationScreen extends StatefulWidget {
   const OtpVerificationScreen({super.key, required this.email});
@@ -78,7 +75,7 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
                 ),
                 const SizedBox(height: 24),
                 PinCodeTextField(
-                  length: 6,
+                  length: 4,
                   obscureText: false,
                   animationType: AnimationType.fade,
                   animationDuration: const Duration(milliseconds: 300),
@@ -91,24 +88,22 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
                   appContext: context,
                   controller: _otpTEController,
                   validator: (String? value) {
-                    if (value?.length != 6) {
+                    if (value?.length != 4) {
                       return 'Enter your otp';
                     }
                     return null;
                   },
                 ),
                 const SizedBox(height: 16),
-                GetBuilder<OtpVerificationController>(
-                  builder: (controller) {
-                    if (controller.inProgress) {
-                      return const CenteredCircularProgressIndicator();
-                    }
-                    return ElevatedButton(
-                      onPressed: _onTapNextButton,
-                      child: const Text('Next'),
-                    );
+                GetBuilder<OtpVerificationController>(builder: (controller) {
+                  if (controller.inProgress) {
+                    return const CenteredCircularProgressIndicator();
                   }
-                ),
+                  return ElevatedButton(
+                    onPressed: _onTapNextButton,
+                    child: const Text('Next'),
+                  );
+                }),
                 const SizedBox(height: 24),
                 Obx(
                   () => Visibility(
@@ -153,15 +148,9 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
       final bool response = await _otpVerificationController.verifyOtp(
           widget.email, _otpTEController.text);
       if (response) {
-        if (_otpVerificationController.shouldNavigateCompleteProfile) {
-          if (mounted) {
-            Navigator.pushNamed(context, SignUpScreen.name);
-          }
-        } else {
-          if (mounted) {
-            Navigator.pushNamedAndRemoveUntil(
-                context, MainBottomNavScreen.name, (predicate) => false);
-          }
+        if (mounted) {
+          Navigator.pushNamedAndRemoveUntil(
+              context, MainBottomNavScreen.name, (predicate) => false);
         }
       } else {
         if (mounted) {

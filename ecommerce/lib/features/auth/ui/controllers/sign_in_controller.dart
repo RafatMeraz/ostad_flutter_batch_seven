@@ -1,6 +1,5 @@
 import 'package:ecommerce/app/urls.dart';
-import 'package:ecommerce/features/auth/data/models/sign_in_model.dart';
-import 'package:ecommerce/features/auth/ui/controllers/read_profile_controller.dart';
+import 'package:ecommerce/features/auth/data/models/auth_success_model.dart';
 import 'package:ecommerce/features/common/ui/controllers/auth_controller.dart';
 import 'package:ecommerce/services/network_caller/network_caller.dart';
 import 'package:get/get.dart';
@@ -22,7 +21,7 @@ class SignInController extends GetxController {
     final NetworkResponse response = await Get.find<NetworkCaller>()
         .postRequest(Urls.signInUrl, body: requestParams);
     if (response.isSuccess) {
-      SignInModel signInModel = SignInModel.fromJson(response.responseData);
+      AuthSuccessModel signInModel = AuthSuccessModel.fromJson(response.responseData);
       await Get.find<AuthController>().saveUserData(
         signInModel.data!.token!,
         signInModel.data!.user!,
