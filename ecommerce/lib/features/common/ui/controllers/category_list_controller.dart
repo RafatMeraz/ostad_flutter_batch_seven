@@ -1,6 +1,5 @@
 import 'package:ecommerce/app/urls.dart';
-import 'package:ecommerce/features/common/data/models/category_list_model.dart';
-import 'package:ecommerce/features/common/data/models/category_model.dart';
+import 'package:ecommerce/features/common/data/models/category/category_pagination_model.dart';
 import 'package:ecommerce/services/network_caller/network_caller.dart';
 import 'package:get/get.dart';
 
@@ -9,22 +8,45 @@ class CategoryListController extends GetxController {
 
   bool get inProgress => _inProgress;
 
-  CategoryListModel? _categoryListModel;
+  bool get initialInProgress => _page == 1;
 
-  List<CategoryModel> get categoryList => _categoryListModel?.categoryList ?? [];
+  List<CategoryItemModel> _categoryList = [];
+
+  List<CategoryItemModel> get categoryList => _categoryList;
 
   String? _errorMessage;
 
   String? get errorMessage => _errorMessage;
 
+  final int _count = 30;
+
+  int _page = 0;
+
+  int? _lastPage;
+
   Future<bool> getCategoryList() async {
+    _page++;
+
+    if (_lastPage != null && _page > _lastPage!) return false;
+
     bool isSuccess = false;
     _inProgress = true;
     update();
-    final NetworkResponse response =
-        await Get.find<NetworkCaller>().getRequest(Urls.categoryListUrl);
+
+    Map<String, dynamic> queryParams = {
+      'count': _count,
+      'page': _page,
+    };
+
+    final NetworkResponse response = await Get.find<NetworkCaller>().getRequest(
+      Urls.categoryListUrl,
+      queryParams: queryParams,
+    );
+
     if (response.isSuccess) {
-      _categoryListModel = CategoryListModel.fromJson(response.responseData);
+      CategoryPaginationModel paginationModel =
+          CategoryPaginationModel.fromJson(response.responseData);
+      _categoryList.addAll(paginationModel.data?.results ?? []);
       isSuccess = true;
     } else {
       _errorMessage = response.errorMessage;
