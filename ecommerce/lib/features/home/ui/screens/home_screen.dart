@@ -4,8 +4,8 @@ import 'package:ecommerce/features/common/data/models/product_model.dart';
 import 'package:ecommerce/features/common/ui/controllers/category_list_controller.dart';
 import 'package:ecommerce/features/common/ui/controllers/main_bottom_nav_controller.dart';
 import 'package:ecommerce/features/common/ui/widgets/centered_circular_progress_indicator.dart';
-import 'package:ecommerce/features/home/ui/controllers/home_banner_list_controller.dart';
 import 'package:ecommerce/features/home/ui/controllers/popular_product_list_controller.dart';
+import 'package:ecommerce/features/home/ui/controllers/slider_list_controller.dart';
 import 'package:ecommerce/features/home/ui/widgets/app_bar_icon_button.dart';
 import 'package:ecommerce/features/common/ui/widgets/category_item_widget.dart';
 import 'package:ecommerce/features/home/ui/widgets/home_carousel_slider.dart';
@@ -42,17 +42,19 @@ class _HomeScreenState extends State<HomeScreen> {
                 controller: _searchBarController,
               ),
               const SizedBox(height: 16),
-              GetBuilder<HomeBannerListController>(builder: (controller) {
-                if (controller.inProgress) {
-                  return const SizedBox(
-                    height: 180,
-                    child: CenteredCircularProgressIndicator(),
+              GetBuilder<SliderListController>(
+                builder: (controller) {
+                  if (controller.inProgress) {
+                    return const SizedBox(
+                      height: 180,
+                      child: CenteredCircularProgressIndicator(),
+                    );
+                  }
+                  return HomeCarouselSlider(
+                    sliderList: controller.bannerList,
                   );
-                }
-                return HomeCarouselSlider(
-                  bannerList: controller.bannerList,
-                );
-              }),
+                },
+              ),
               const SizedBox(height: 16),
               HomeSectionHeader(
                 title: 'Category',
